@@ -1,8 +1,13 @@
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { APIEvent } from "@solidjs/start/server";
 
-export const createClient = (event: APIEvent) => {
-  const cookies = parseCookieHeader(event.request.headers.get('Cookie') ?? '');
+type SupabaseClientEvent = {
+  request: APIEvent['request']
+  response: APIEvent['response']
+}
+
+export const createClient = ({ request, response }: SupabaseClientEvent) => {
+  const cookies = parseCookieHeader(request.headers.get('Cookie') ?? '');
 
   return createServerClient(
     process.env.PUBLIC_SUPABASE_URL!,
@@ -15,7 +20,7 @@ export const createClient = (event: APIEvent) => {
         setAll(cookiesToSet: { name: string, value: string }[]) {
           try {
             cookiesToSet.forEach(({ name, value }: { name: string, value: string }) => {
-              event.response.headers.set('Set-Cookie', `${name}=${value}`);
+              response.headers.set('Set-Cookie', `${name}=${value}`);
             });
           } catch (error) {
             // The `set` method was called from a Server Component.
