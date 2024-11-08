@@ -3,26 +3,31 @@ import type { APIEvent } from "@solidjs/start/server";
 import { createMiddleware } from "@solidjs/start/middleware";
 import { redirect } from "@solidjs/router";
 
-const getIsProtected = (request: APIEvent['request']): boolean => true
+const getIsProtected = (request: APIEvent['request']): boolean => false
 
 export default createMiddleware({
   onRequest: [
     async event => {
       const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        process.env.VITE_SUPABASE_URL!,
+        process.env.VITE_SUPABASE_ANON_KEY!,
         {
           cookies: {
             getAll() {
-              return parseCookieHeader(event.request.headers.get('Cookie') ?? '')
+              const cookies = event.request.headers.get('Cookie') ?? ''
+              const parsed = parseCookieHeader(cookies);
+              console.log('Middleware cookies', cookies, parsed);
+              return parsed;
             },
             setAll(cookiesToSet: { name: string, value: string }[]) {
+              console.log('Middleware cookiesToSet', cookiesToSet);
+
               cookiesToSet.forEach(({ name, value }: { name: string, value: string }) => {
-                event.request.headers.set('Set-Cookie', `${name}=${value}`);
+                event.request.headers.append('Set-Cookie', `${name}=${value}`);
               });
 
               cookiesToSet.forEach(({ name, value }: { name: string, value: string }) => {
-                event.response.headers.set('Set-Cookie', `${name}=${value}`);
+                event.response.headers.append('Set-Cookie', `${name}=${value}`);
               });
             }
           }

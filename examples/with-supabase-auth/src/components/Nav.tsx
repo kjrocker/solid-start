@@ -10,8 +10,17 @@ export default function Nav() {
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
           <a href="/">Home</a>
         </li>
-        <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
-          <a href="/about">About</a>
+        <li class={`border-b-2 ${active("/sign-in")} mx-1.5 sm:mx-6`}>
+          <a href="/sign-in">Login</a>
+        </li>
+        <li class={`border-b-2 ${active("/sign-up")} mx-1.5 sm:mx-6`}>
+          <a href="/sign-up">Register</a>
+        </li>
+        <li class={`border-b-2 ${active("/forgot-password")} mx-1.5 sm:mx-6`}>
+          <a href="/forgot-password">Forgot Password</a>
+        </li>
+        <li class={`border-b-2 ${active("/protected")} mx-1.5 sm:mx-6`}>
+          <a href="/protected">Protected</a>
         </li>
       </ul>
     </nav>

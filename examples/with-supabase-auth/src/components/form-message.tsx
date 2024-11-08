@@ -1,9 +1,10 @@
 export type Message =
-    | { success: string }
-    | { error: string }
-    | { message: string };
+    | { success?: string }
+    | { error?: string }
+    | { message?: string };
 
-export function FormMessage(props: { message: Message }) {
+export function FormMessage(props: { message?: Message }) {
+    if (!props.message) return;
     return (
         <div class="flex flex-col gap-2 w-full max-w-md text-sm">
             {"success" in props.message && (

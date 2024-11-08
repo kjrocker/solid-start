@@ -1,13 +1,14 @@
-
+import { useSearchParams } from "@solidjs/router";
 import { FormMessage, Message } from "~/components/form-message";
 import { Input } from "~/components/input";
 import { Label } from "~/components/label";
 import { SubmitButton } from "~/components/submit-button";
 import { signInAction } from "~/util/supabase/actions";
 
-export default function Login({ searchParams }: { searchParams: Message }) {
+export default function Login() {
+    const [searchParams] = useSearchParams<Message>();
     return (
-        <form action={signInAction} class="flex-1 flex flex-col min-w-64">
+        <form action={signInAction} class="flex flex-col min-w-64 max-w-64 mx-auto" method="post">
             <h1 class="text-2xl font-medium">Sign in</h1>
             <p class="text-sm text-foreground">
                 Don't have an account?{" "}

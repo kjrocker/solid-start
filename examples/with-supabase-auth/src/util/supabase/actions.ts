@@ -1,11 +1,11 @@
-"use server";
-
 import { createClient } from "~/util/supabase/server";
-import { action, redirect } from "@solidjs/router";
+import { action, json, redirect } from "@solidjs/router";
 import { getRequestEvent } from "solid-js/web";
 import { encodedRedirect } from "../utils";
 
 export const signUpAction = action(async (formData: FormData) => {
+  "use server";
+  console.log("Form Data: ", formData)
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const event = getRequestEvent()!
@@ -13,7 +13,7 @@ export const signUpAction = action(async (formData: FormData) => {
   const origin = event.request.headers.get("origin");
 
   if (!email || !password) {
-    return { error: "Email and password are required" };
+    return new Error("Email and password are required");
   }
 
   const { error } = await supabase.auth.signUp({
@@ -34,9 +34,10 @@ export const signUpAction = action(async (formData: FormData) => {
       "Thanks for signing up! Please check your email for a verification link.",
     );
   }
-});
+}, "signUpAction");
 
 export const signInAction = action(async (formData: FormData) => {
+  "use server";
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const event = getRequestEvent()!
@@ -52,9 +53,10 @@ export const signInAction = action(async (formData: FormData) => {
   }
 
   return redirect("/protected");
-});
+}, "signInAction");
 
 export const forgotPasswordAction = action(async (formData: FormData) => {
+  "use server";
   const email = formData.get("email")?.toString();
   const event = getRequestEvent()!
   const supabase = createClient(event);
@@ -87,9 +89,10 @@ export const forgotPasswordAction = action(async (formData: FormData) => {
     "/forgot-password",
     "Check your email for a link to reset your password.",
   );
-});
+}, "forgotPasswordAction");
 
 export const resetPasswordAction = action(async (formData: FormData) => {
+  "use server";
   const event = getRequestEvent()!
   const supabase = createClient(event);
 
@@ -125,11 +128,12 @@ export const resetPasswordAction = action(async (formData: FormData) => {
   }
 
   encodedRedirect("success", "/protected/reset-password", "Password updated");
-});
+}, "resetPasswordAction");
 
 export const signOutAction = action(async () => {
+  "use server";
   const event = getRequestEvent()!
   const supabase = createClient(event);
   await supabase.auth.signOut();
   return redirect("/sign-in");
-});
+}, "signOutAction");

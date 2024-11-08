@@ -1,11 +1,13 @@
+import { useSearchParams } from "@solidjs/router";
 import { FormMessage, Message } from "~/components/form-message";
 import { Input } from "~/components/input";
 import { Label } from "~/components/label";
 import { SubmitButton } from "~/components/submit-button";
 import { signUpAction } from "~/util/supabase/actions";
 
-export default function Signup({ searchParams }: { searchParams: Message }) {
-    if ("message" in searchParams) {
+export default function Signup() {
+    const [searchParams] = useSearchParams<Message>();
+    if (searchParams && "message" in searchParams) {
         return (
             <div class="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
                 <FormMessage message={searchParams} />
@@ -14,7 +16,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
     }
 
     return (
-        <form action={signUpAction} class="flex flex-col min-w-64 max-w-64 mx-auto">
+        <form action={signUpAction} class="flex flex-col min-w-64 max-w-64 mx-auto" method="post">
             <h1 class="text-2xl font-medium">Sign up</h1>
             <p class="text-sm text text-foreground">
                 Already have an account?{" "}
