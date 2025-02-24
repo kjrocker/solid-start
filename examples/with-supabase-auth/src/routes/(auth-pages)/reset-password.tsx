@@ -1,9 +1,9 @@
 import { type RouteDefinition, useSearchParams } from "@solidjs/router";
 import { FormMessage, Message } from "~/components/form-message";
-import { getUser, resetPasswordAction } from "~/util/supabase/actions";
+import { getProtectedUser, resetPasswordAction } from "~/util/supabase/actions";
 
 export const route = {
-    preload() { getUser() }
+    preload() { getProtectedUser() }
 } satisfies RouteDefinition;
 
 export default function ResetPassword() {

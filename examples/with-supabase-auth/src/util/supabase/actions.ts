@@ -1,9 +1,26 @@
-import { action, cache, redirect } from "@solidjs/router";
+import { action, query, redirect } from "@solidjs/router";
 import { getRequestEvent } from "solid-js/web";
 import { createServerClient } from "~/util/supabase/server";
 import { encodedRedirect } from "../encodedRedirect";
 
-export const getUser = cache(async () => {
+/**
+ * Create the server-side client and get the user.
+ * Suitable for conditional rendering based on user authentication.
+ */
+export const getUser = query(async () => {
+  "use server";
+  const event = getRequestEvent()!
+  const supabase = createServerClient(event);
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}, "user");
+
+
+/**
+ * Get the user and redirect to the login page if the user is not found.
+ * Suitable for protecting routes that require authentication.
+ */
+export const getProtectedUser = query(async () => {
   "use server";
   const event = getRequestEvent()!
   const supabase = createServerClient(event);
@@ -14,9 +31,9 @@ export const getUser = cache(async () => {
     return user;
   } catch {
     await supabase.auth.signOut();
-    redirect("/login");
+    return redirect("/login");
   }
-}, "user");
+}, "protectedUser");
 
 export const signUpAction = action(async (formData: FormData) => {
   "use server";

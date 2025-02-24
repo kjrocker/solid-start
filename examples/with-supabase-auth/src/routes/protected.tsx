@@ -1,12 +1,12 @@
 import { A, createAsync, type RouteDefinition } from "@solidjs/router";
-import { getUser } from "~/util/supabase/actions";
+import { getProtectedUser } from "~/util/supabase/actions";
 
 export const route = {
-    preload() { getUser() }
+    preload() { getProtectedUser() }
 } satisfies RouteDefinition;
 
 export default function Protected() {
-    const user = createAsync(() => getUser(), { deferStream: true });
+    const user = createAsync(() => getProtectedUser(), { deferStream: true });
     return (
         <main class="text-center mx-auto text-gray-700 p-4">
             <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">Protected Page</h1>
