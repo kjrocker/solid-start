@@ -15,7 +15,7 @@ export default function Login() {
             </p>
             <div class="flex flex-col gap-2 [&>input]:mb-3 mt-8">
                 <label for="email">Email</label>
-                <input name="email" type="email" placeholder="you@example.com" required />
+                <input name="email" type="email" class="text-black" placeholder="you@example.com" required />
                 <div class="flex justify-between items-center">
                     <label for="password">Password</label>
                     <A
@@ -28,6 +28,7 @@ export default function Login() {
                 <input
                     type="password"
                     name="password"
+                    class="text-black"
                     placeholder="Your password"
                     required
                 />

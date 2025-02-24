@@ -31,7 +31,7 @@ export const getProtectedUser = query(async () => {
     return user;
   } catch {
     await supabase.auth.signOut();
-    return redirect("/login");
+    return redirect("/sign-in");
   }
 }, "protectedUser");
 
@@ -125,41 +125,40 @@ export const forgotPasswordAction = action(async (formData: FormData) => {
 
 export const resetPasswordAction = action(async (formData: FormData) => {
   "use server";
-  const event = getRequestEvent()!
-  const supabase = createServerClient(event);
-
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
   if (!password || !confirmPassword) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
-      "/protected/reset-password",
+      "/reset-password",
       "Password and confirm password are required",
     );
   }
 
   if (password !== confirmPassword) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
-      "/protected/reset-password",
+      "/reset-password",
       "Passwords do not match",
     );
   }
 
+  const event = getRequestEvent()!
+  const supabase = createServerClient(event);
   const { error } = await supabase.auth.updateUser({
     password: password,
   });
 
   if (error) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
-      "/protected/reset-password",
+      "/reset-password",
       "Password update failed",
     );
   }
 
-  encodedRedirect("success", "/protected/reset-password", "Password updated");
+  return encodedRedirect("success", "/protected", "Password updated");
 }, "resetPasswordAction");
 
 export const signOutAction = action(async () => {

@@ -1,9 +1,10 @@
 import { A, createAsync, useLocation } from "@solidjs/router";
+import { Show } from "solid-js";
 import { getUser, signOutAction } from "~/util/supabase/actions";
 
 export function Navigation() {
   const location = useLocation();
-  const user = createAsync(() => getUser(), { deferStream: true });
+  const user = createAsync(() => getUser());
   const active = (path: string) =>
     path == location.pathname ? "border-sky-600" : "border-transparent hover:border-sky-600";
   return (
@@ -18,16 +19,7 @@ export function Navigation() {
         <li class={`border-b-2 ${active("/protected")} mx-1.5 sm:mx-6`}>
           <A href="/protected">Protected</A>
         </li>
-        {user() ? (
-          <>
-            <li class={`border-b-2 ${active("/reset-password")} mx-1.5 sm:mx-6`}>
-              <A href="/reset-password">Reset Password</A>
-            </li>
-            <form action={signOutAction} method="post">
-              <button formAction={signOutAction} type="submit">Sign Out</button>
-            </form>
-          </>
-        ) : (
+        <Show when={user()} fallback={
           <>
             <li class={`border-b-2 ${active("/sign-up")} mx-1.5 sm:mx-6`}>
               <A href="/sign-up">Sign Up</A>
@@ -36,7 +28,11 @@ export function Navigation() {
               <A href="/sign-in">Sign In</A>
             </li>
           </>
-        )}
+        }>
+          <form action={signOutAction} method="post">
+            <button formAction={signOutAction} class={`border-b-2 mx-1.5 sm:mx-6`} type="submit">Sign Out</button>
+          </form>
+        </Show>
       </ul>
     </nav>
   );

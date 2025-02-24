@@ -22,7 +22,10 @@ export default function Protected() {
                     Home
                 </A>
                 {" - "}
-                <span>About Page</span>
+                <A href="/about" class="text-sky-600 hover:underline">
+                    About
+                </A>
+                {" - "}
                 <A href="/reset-password" class="text-sky-600 hover:underline">
                     Reset Password
                 </A>

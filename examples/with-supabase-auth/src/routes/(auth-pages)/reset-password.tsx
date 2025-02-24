@@ -18,6 +18,7 @@ export default function ResetPassword() {
             <input
                 type="password"
                 name="password"
+                class="text-black"
                 placeholder="New password"
                 required
             />
@@ -25,10 +26,11 @@ export default function ResetPassword() {
             <input
                 type="password"
                 name="confirmPassword"
+                class="text-black"
                 placeholder="Confirm password"
                 required
             />
-            <button type="submit">
+            <button formAction={resetPasswordAction} type="submit">
                 Reset password
             </button>
             <FormMessage message={searchParams} />

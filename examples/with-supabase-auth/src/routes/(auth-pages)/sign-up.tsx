@@ -22,11 +22,12 @@ export default function Signup() {
             </p>
             <div class="flex flex-col gap-2 [&>input]:mb-3 mt-8">
                 <label for="email">Email</label>
-                <input name="email" placeholder="you@example.com" required />
+                <input name="email" type="email" class="text-black" placeholder="you@example.com" required />
                 <label for="password">Password</label>
                 <input
                     type="password"
                     name="password"
+                    class="text-black"
                     placeholder="Your password"
                     minLength={6}
                     required
