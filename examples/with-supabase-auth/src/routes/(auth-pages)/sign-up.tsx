@@ -1,4 +1,4 @@
-import { useSearchParams } from "@solidjs/router";
+import { A, useSearchParams } from "@solidjs/router";
 import { FormMessage, Message } from "~/components/form-message";
 import { signUpAction } from "~/util/supabase/actions";
 
@@ -16,9 +16,9 @@ export default function Signup() {
             <h1 class="text-2xl font-medium">Sign up</h1>
             <p class="text-sm text text-foreground">
                 Already have an account?{" "}
-                <a class="text-primary font-medium underline" href="/sign-in">
+                <A class="text-primary font-medium underline" href="/sign-in">
                     Sign in
-                </a>
+                </A>
             </p>
             <div class="flex flex-col gap-2 [&>input]:mb-3 mt-8">
                 <label for="email">Email</label>

@@ -1,4 +1,4 @@
-import { useSearchParams } from "@solidjs/router";
+import { A, useSearchParams } from "@solidjs/router";
 import { FormMessage, Message } from "~/components/form-message";
 import { forgotPasswordAction } from "~/util/supabase/actions";
 
@@ -11,9 +11,9 @@ export default function ForgotPassword() {
                 <h1 class="text-2xl font-medium">Reset Password</h1>
                 <p class="text-sm text-secondary-foreground">
                     Already have an account?{" "}
-                    <a class="text-primary underline" href="/sign-in">
+                    <A class="text-primary underline" href="/sign-in">
                         Sign in
-                    </a>
+                    </A>
                 </p>
             </div>
             <div class="flex flex-col gap-2 [&>input]:mb-3 mt-8">
