@@ -18,6 +18,9 @@ export default function Protected() {
                 to learn how to build Solid apps.
             </p>
             <p class="my-4">
+                This page is protected. You must be logged in to view it.
+            </p>
+            <p class="my-4">
                 <A href="/" class="text-sky-600 hover:underline">
                     Home
                 </A>
