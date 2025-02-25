@@ -35,7 +35,7 @@ export default function Signup() {
                 <button type="submit" formAction={signUpAction}>
                     Sign up
                 </button>
-                <FormMessage message={searchParams} />
+                <FormMessage success={searchParams.success} error={searchParams.error} message={searchParams.message} />
             </div>
         </form>
     );

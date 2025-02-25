@@ -33,7 +33,7 @@ export default function ResetPassword() {
             <button formAction={resetPasswordAction} type="submit">
                 Reset password
             </button>
-            <FormMessage message={searchParams} />
+            <FormMessage success={searchParams.success} error={searchParams.error} message={searchParams.message} />
         </form>
     );
 }

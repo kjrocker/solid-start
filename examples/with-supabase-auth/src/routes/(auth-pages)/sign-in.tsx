@@ -35,7 +35,7 @@ export default function Login() {
                 <button formAction={signInAction}>
                     Sign in
                 </button>
-                <FormMessage message={searchParams} />
+                <FormMessage success={searchParams.success} error={searchParams.error} message={searchParams.message} />
             </div>
         </form>
     );

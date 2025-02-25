@@ -1,25 +1,20 @@
-export type Message =
-    | { success?: string }
-    | { error?: string }
-    | { message?: string };
+export type Message = { success?: string; error?: string; message?: string };
 
-export function FormMessage(props: { message?: Message }) {
-    if (!props.message) return;
+export function FormMessage({
+    success,
+    error,
+    message
+}: {
+    success?: string;
+    error?: string;
+    message?: string;
+}) {
+    if (!success && !error && !message) return null;
     return (
         <div class="flex flex-col gap-2 w-full max-w-md text-sm">
-            {"success" in props.message && (
-                <div class="text-foreground border-l-2 border-foreground px-4">
-                    {props.message.success}
-                </div>
-            )}
-            {"error" in props.message && (
-                <div class="text-destructive-foreground border-l-2 border-destructive-foreground px-4">
-                    {props.message.error}
-                </div>
-            )}
-            {"message" in props.message && (
-                <div class="text-foreground border-l-2 px-4">{props.message.message}</div>
-            )}
+            {success && <p class="text-green-600">{success}</p>}
+            {error && <p class="text-red-600">{error}</p>}
+            {message && <p>{message}</p>}
         </div>
     );
 }

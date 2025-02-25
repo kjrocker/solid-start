@@ -22,9 +22,8 @@ export default function ForgotPassword() {
                 <button type="submit" formAction={forgotPasswordAction}>
                     Reset Password
                 </button>
-                <FormMessage message={searchParams} />
+                <FormMessage success={searchParams.success} error={searchParams.error} message={searchParams.message} />
             </div>
         </form>
-
     );
 }
